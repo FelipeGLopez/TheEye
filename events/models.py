@@ -10,7 +10,7 @@ class Event(models.Model):
     category = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     data = models.JSONField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField()
 
     @property
     def type(self):
