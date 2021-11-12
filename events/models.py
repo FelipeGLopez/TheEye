@@ -11,3 +11,8 @@ class Event(models.Model):
     name = models.CharField(max_length=100)
     data = models.JSONField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def type(self):
+        """Get the type (category + name)"""
+        return self.category + " " + self.name
