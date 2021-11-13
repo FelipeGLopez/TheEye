@@ -6,7 +6,7 @@ from sessions_app.models import Session
 
 class EventSerializer(serializers.ModelSerializer):
     session_id = serializers.CharField()
-    category = serializers.FloatField()
+    category = serializers.CharField()
     name = serializers.CharField()
     data = serializers.JSONField()
     timestamp = serializers.DateTimeField()
