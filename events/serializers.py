@@ -1,22 +1,9 @@
 from rest_framework import serializers
 
-from events.models import Event
-from sessions_app.models import Session
 
-
-class EventSerializer(serializers.ModelSerializer):
+class EventSerializer(serializers.Serializer):
     session_id = serializers.CharField()
     category = serializers.CharField()
     name = serializers.CharField()
     data = serializers.JSONField()
     timestamp = serializers.DateTimeField()
-
-    class Meta:
-        model = Event
-        fields = "__all__"
-
-    def create(self, validated_data):
-        session_id = validated_data.pop("session_id")
-        event = Event.objects.create(**validated_data)
-        Session.objects.create(session_id=session_id, event=event)
-        return event
