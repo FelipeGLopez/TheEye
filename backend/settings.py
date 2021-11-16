@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -126,3 +127,58 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "%(levelname)s | %(name)s | %(filename)s | %(funcName)s | "
+            "%(lineno)d | %(message)s"
+        },
+    },
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"},
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "backend": {
+            "handlers": [
+                "console",
+            ],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+        "parso": {
+            # https://github.com/ipython/ipython/issues/10946#issuecomment-356264204
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django": {
+            "handlers": [
+                "console",
+            ],
+            "level": "INFO",
+            "propagate": True,
+        },
+        "django.db.backends": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "": {
+            "handlers": [
+                "console",
+            ],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}
