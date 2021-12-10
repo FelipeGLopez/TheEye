@@ -37,6 +37,3 @@ Simple application for CA.
 
 ### For processing requests in an Atomic way:
  - ATOMIC_REQUESTS: True in settings.py
-
-### Celery usage
-- For celery tasks for async tasks I am going to use Celery 
