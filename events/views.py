@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 
 from events.models import Event
 from events.serializers import EventSerializer
+from events.tasks import send_event
 
 logger = logging.getLogger(__name__)
 
@@ -27,25 +28,6 @@ class CreateEventApiView(APIView):
         serializer = EventSerializer(data=request.data)
         if serializer.is_valid():
             validated_data = serializer.validated_data
-            session_id = validated_data["session_id"]
-            category = validated_data["category"]
-            name = validated_data["name"]
-            data = validated_data["data"]
-            timestamp = validated_data["timestamp"]
-
-            event, _ = Event.objects.get_or_create(
-                category=category,
-                name=name,
-                defaults={
-                    "category": category,
-                    "name": name,
-                    "data": data,
-                    "timestamp": timestamp,
-                },
-            )
-            session, _ = Session.objects.get_or_create(
-                session_id=session_id,
-                defaults={"session_id": session_id, "event": event},
-            )
+            send_event.delay(validated_data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
