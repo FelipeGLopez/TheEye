@@ -41,3 +41,4 @@ Simple application for CA.
 
 ### For processing the requests
 - We are going to use Celery for processing tasks async in the background.
+- Celery uses Redis to pass messages between django and celery workers, so we also use Redis.
