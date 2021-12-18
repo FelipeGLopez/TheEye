@@ -2,6 +2,24 @@
 
 Simple application for CA.
 
+## Setting up the project
+
+1 - Install [poetry](https://python-poetry.org/docs/) in your system.
+2 - Execute the folllowing commands in the root folder to install all the project requirements: 
+- `poetry config virtualenvs.in-project true` (To create the .venv folder in the project folder)
+- `poetry install` (To install dependencies from `pyproject.toml`)
+
+## Run the project
+Execute `poetry shell` in the root folder to activate the virtual environment.
+
+- First run `./manage.py migrate` to apply all the migrations.
+- Then run `./manage.py loaddata backend/fixtures/user.json`  to install the superuser (The username is `ReusableClient` and password is `admin`, but you can create one superuser with this command `./manage.py createsuperuser`).
+
+Open 3 tabs qith the env activated:
+- In one tab execute `./manage.py runserver` to run the backend.
+- In the second tab run `redis-server` to run the redis server. (If this doesn't work, maybe you should install redis in your system).
+- In the third tab run `celery -A backend worker -l info` for celery tasks.
+
 ## Configuration
 - Poetry environment will be used along with python 3.8 and django 3.2.9
 - `black` as the code formatter.
@@ -40,5 +58,5 @@ Simple application for CA.
 
 
 ### For processing the requests
-- We are going to use Celery for processing tasks async in the background.
-- Celery uses Redis to pass messages between django and celery workers, so we also use Redis.
+- We are going to use Celery for processing async tasks in the background.
+- Celery uses Redis to pass messages between django and celery workers, so we are going to use it.
