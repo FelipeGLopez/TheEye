@@ -13,7 +13,7 @@ Simple application for CA.
 Execute `poetry shell` in the root folder to activate the virtual environment.
 
 - First run `./manage.py migrate` to apply all the migrations.
-- Then run `./manage.py loaddata backend/fixtures/user.json`  to install the superuser (The username is `ReusableClient` and password is `admin`, but you can create one superuser with this command `./manage.py createsuperuser`).
+- Then run `./manage.py loaddata backend/fixtures/user.json`  to install the superuser (The username is `ReusableUser` and password is `admin`, but you can create one superuser with this command `./manage.py createsuperuser`).
 
 Open 3 tabs qith the env activated:
 - In one tab execute `./manage.py runserver` to run the backend.
