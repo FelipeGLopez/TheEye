@@ -20,6 +20,10 @@ Open 3 tabs qith the env activated:
 - In the second tab run `redis-server` to run the redis server. (If this doesn't work, maybe you should install redis in your system).
 - In the third tab run `celery -A backend worker -l info` for celery tasks.
 
+### Try the events endpint
+- Enter http://localhost:8000/admin and log with the superuser or the user you have registered
+- Logged in, enter http://localhost:8000/events/ to send the JSON post requests.
+
 ## Configuration
 - Poetry environment will be used along with python 3.8 and django 3.2.9
 - `black` as the code formatter.
